@@ -7,11 +7,9 @@ import {
   Tag, 
   Crown, 
   Shield, 
-  Mail, 
   Save,
   X,
-  Plus,
-  Check
+  Plus
 } from 'lucide-react'
 
 export default function Settings() {

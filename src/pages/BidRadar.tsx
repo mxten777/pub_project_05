@@ -3,7 +3,7 @@ import { collection, query, orderBy, getDocs } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
 import { useBidStore } from '@/store/bidStore'
 import { Link } from 'react-router-dom'
-import { Search, Filter, Star, Calendar, MapPin, DollarSign, ArrowUpDown, X } from 'lucide-react'
+import { Search, Filter, Star, Calendar, MapPin, DollarSign, X } from 'lucide-react'
 
 const CATEGORIES = ['건설', '용역', '물품', '소프트웨어', '기타']
 const REGIONS = ['서울', '경기', '인천', '부산', '대구', '광주', '대전', '울산', '세종', '강원', '충북', '충남', '전북', '전남', '경북', '경남', '제주']
