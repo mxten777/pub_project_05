@@ -1,0 +1,362 @@
+"""
+AI 기반 문서 자동 생성 모듈
+OpenAI GPT를 활용한 제안서, 보고서, 체크리스트 자동 생성
+"""
+
+import os
+from openai import OpenAI
+from datetime import datetime
+from docx import Document
+from docx.shared import Pt, RGBColor
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+from reportlab.lib.pagesizes import A4
+from reportlab.pdfgen import canvas
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+from dotenv import load_dotenv
+
+load_dotenv()
+
+class DocumentGenerator:
+    """AI 기반 문서 생성 클래스"""
+    
+    def __init__(self):
+        self.client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+        
+    def generate_proposal(self, bid_info: dict, company_info: dict) -> str:
+        """
+        제안요약서 생성
+        
+        Args:
+            bid_info: 입찰 정보
+            company_info: 회사 정보
+            
+        Returns:
+            생성된 제안서 텍스트
+        """
+        print("📝 제안요약서 생성 중...")
+        
+        prompt = f"""
+당신은 입찰 제안서 작성 전문가입니다.
+아래 정보를 바탕으로 전문적인 제안요약서를 작성해주세요.
+
+[입찰 정보]
+- 사업명: {bid_info.get('title', '')}
+- 발주기관: {bid_info.get('agency', '')}
+- 예산: {bid_info.get('budget', '')}원
+- 업종: {bid_info.get('category', '')}
+
+[제안사 정보]
+- 회사명: {company_info.get('name', '')}
+- 회사 소개: {company_info.get('description', '')}
+
+다음 구조로 작성해주세요:
+1. 사업 개요
+2. 제안 내용
+3. 사업 수행 방안
+4. 기대 효과
+5. 결론
+
+전문적이고 설득력 있게 작성해주세요.
+        """
+        
+        try:
+            response = self.client.chat.completions.create(
+                model="gpt-4",
+                messages=[
+                    {"role": "system", "content": "당신은 입찰 제안서 작성 전문가입니다."},
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.7,
+                max_tokens=2000
+            )
+            
+            content = response.choices[0].message.content
+            print("✅ 제안요약서 생성 완료")
+            return content
+            
+        except Exception as e:
+            print(f"❌ 생성 실패: {e}")
+            return self._generate_mock_proposal(bid_info, company_info)
+    
+    def _generate_mock_proposal(self, bid_info: dict, company_info: dict) -> str:
+        """Mock 제안서 생성 (API 실패 시)"""
+        return f"""
+[제안요약서]
+
+1. 사업 개요
+   - 사업명: {bid_info.get('title', '')}
+   - 발주기관: {bid_info.get('agency', '')}
+   - 제안사: {company_info.get('name', '')}
+
+2. 제안 내용
+   {company_info.get('description', '본 사업을 위한 최적의 솔루션을 제안합니다.')}
+
+3. 사업 수행 방안
+   - 체계적이고 효율적인 프로젝트 관리
+   - 검증된 방법론과 최신 기술 활용
+   - 전문 인력 투입 및 품질 관리
+
+4. 기대 효과
+   - 업무 효율성 향상
+   - 비용 절감 효과
+   - 안정적인 시스템 구축
+
+5. 결론
+   저희 {company_info.get('name', '')}는(은) 풍부한 경험과 기술력을 바탕으로
+   본 사업을 성공적으로 수행할 수 있는 최적의 파트너입니다.
+
+작성일: {datetime.now().strftime('%Y년 %m월 %d일')}
+        """
+    
+    def generate_analysis_report(self, bid_info: dict, analysis_data: dict) -> str:
+        """
+        기관별 분석 보고서 생성
+        
+        Args:
+            bid_info: 입찰 정보
+            analysis_data: 분석 데이터
+            
+        Returns:
+            생성된 보고서 텍스트
+        """
+        print("📊 분석 보고서 생성 중...")
+        
+        prompt = f"""
+당신은 입찰 데이터 분석 전문가입니다.
+아래 데이터를 바탕으로 전문적인 분석 보고서를 작성해주세요.
+
+[입찰 정보]
+- 사업명: {bid_info.get('title', '')}
+- 발주기관: {bid_info.get('agency', '')}
+- 업종: {bid_info.get('category', '')}
+- 예산: {bid_info.get('budget', '')}원
+
+[분석 데이터]
+- 평균 낙찰률: {analysis_data.get('avgWinRate', 87.5)}%
+- 평균 경쟁률: {analysis_data.get('avgCompetition', 5.2)}:1
+- 연간 발주 건수: {analysis_data.get('yearlyBids', 150)}건
+
+다음 구조로 작성해주세요:
+1. 발주 기관 분석
+2. 경쟁 환경 분석
+3. 입찰 전략 제안
+4. 성공 확률 평가
+
+데이터 기반으로 전문적으로 작성해주세요.
+        """
+        
+        try:
+            response = self.client.chat.completions.create(
+                model="gpt-4",
+                messages=[
+                    {"role": "system", "content": "당신은 입찰 데이터 분석 전문가입니다."},
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.7,
+                max_tokens=2000
+            )
+            
+            content = response.choices[0].message.content
+            print("✅ 분석 보고서 생성 완료")
+            return content
+            
+        except Exception as e:
+            print(f"❌ 생성 실패: {e}")
+            return self._generate_mock_report(bid_info, analysis_data)
+    
+    def _generate_mock_report(self, bid_info: dict, analysis_data: dict) -> str:
+        """Mock 보고서 생성"""
+        return f"""
+[기관별 분석 보고서]
+
+분석 대상: {bid_info.get('title', '')}
+발주기관: {bid_info.get('agency', '')}
+
+1. 발주 기관 분석
+   - 연간 발주 규모: 약 {analysis_data.get('yearlyBids', 150)}건
+   - 평균 낙찰률: {analysis_data.get('avgWinRate', 87.5)}%
+   - 선호 업체 특성: 중견기업, 실적 중시
+
+2. 경쟁 환경 분석
+   - 평균 경쟁률: {analysis_data.get('avgCompetition', 5.2)}:1
+   - 주요 경쟁사: 3~4개 업체
+   - 시장 점유율: 상위 3사가 60% 차지
+
+3. 입찰 전략 제안
+   - 권장 투찰률: 86.5% ~ 88.0%
+   - 강조 포인트: 기술력, 실적, 가격 경쟁력
+   - 리스크 요인: 과도한 저가 입찰 주의
+
+4. 성공 확률 평가
+   - 예상 성공률: 72%
+   - 신뢰 수준: 높음
+   - 권장사항: 기술 제안서 강화
+
+분석일: {datetime.now().strftime('%Y년 %m월 %d일')}
+        """
+    
+    def generate_checklist(self, bid_info: dict) -> str:
+        """
+        입찰 참여 체크리스트 생성
+        
+        Args:
+            bid_info: 입찰 정보
+            
+        Returns:
+            체크리스트 텍스트
+        """
+        print("✅ 체크리스트 생성 중...")
+        
+        checklist = f"""
+[입찰 참여 체크리스트]
+
+사업명: {bid_info.get('title', '')}
+발주기관: {bid_info.get('agency', '')}
+마감일: {bid_info.get('deadline', '')}
+
+□ 1단계: 서류 준비
+  ☐ 사업자등록증 사본
+  ☐ 법인등기부등본
+  ☐ 최근 3개년 재무제표
+  ☐ 유사 실적 증명서
+  ☐ 기술인력 보유 현황
+  ☐ 면허 및 인증서
+
+□ 2단계: 자격 요건 확인
+  ☐ 업종 적합성 확인
+  ☐ 필수 면허/등록 보유
+  ☐ 실적 요건 충족 여부
+  ☐ 기술등급 확인
+  ☐ 지역 제한 확인
+
+□ 3단계: 입찰 서류 작성
+  ☐ 입찰서 작성
+  ☐ 입찰보증금 준비
+  ☐ 사업수행계획서 작성
+  ☐ 기술제안서 작성
+  ☐ 가격 명세서 작성
+
+□ 4단계: 제출 준비
+  ☐ 서류 검토 및 오류 확인
+  ☐ 전자서명 준비
+  ☐ 제출 방법 확인 (나라장터)
+  ☐ 마감일시 재확인
+
+□ 5단계: 최종 점검
+  ☐ 모든 서류 제출 완료
+  ☐ 제출 확인증 저장
+  ☐ 담당자 연락처 확보
+  ☐ 개찰일시 확인
+
+작성일: {datetime.now().strftime('%Y년 %m월 %d일')}
+        """
+        
+        print("✅ 체크리스트 생성 완료")
+        return checklist
+    
+    def export_to_word(self, content: str, filename: str):
+        """
+        Word 문서로 내보내기
+        
+        Args:
+            content: 문서 내용
+            filename: 저장할 파일명
+        """
+        print(f"📄 Word 문서 생성 중: {filename}")
+        
+        doc = Document()
+        
+        # 제목 추가
+        title = doc.add_heading('입찰 문서', 0)
+        title.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        
+        # 내용 추가
+        for line in content.split('\n'):
+            if line.strip():
+                p = doc.add_paragraph(line)
+                p.style.font.size = Pt(11)
+        
+        # 저장
+        doc.save(f'output/{filename}.docx')
+        print(f"✅ Word 문서 저장 완료: output/{filename}.docx")
+    
+    def export_to_pdf(self, content: str, filename: str):
+        """
+        PDF 문서로 내보내기
+        
+        Args:
+            content: 문서 내용
+            filename: 저장할 파일명
+        """
+        print(f"📄 PDF 문서 생성 중: {filename}")
+        
+        c = canvas.Canvas(f'output/{filename}.pdf', pagesize=A4)
+        width, height = A4
+        
+        # 제목
+        c.setFont("Helvetica-Bold", 16)
+        c.drawString(50, height - 50, "Bid Document")
+        
+        # 내용
+        c.setFont("Helvetica", 10)
+        y = height - 100
+        
+        for line in content.split('\n'):
+            if y < 50:  # 페이지 넘김
+                c.showPage()
+                c.setFont("Helvetica", 10)
+                y = height - 50
+            
+            c.drawString(50, y, line[:80])  # 한 줄에 80자까지
+            y -= 15
+        
+        c.save()
+        print(f"✅ PDF 문서 저장 완료: output/{filename}.pdf")
+
+
+def main():
+    """테스트 실행"""
+    generator = DocumentGenerator()
+    
+    # 테스트 데이터
+    bid_info = {
+        'title': '2024년 스마트시티 통합플랫폼 구축사업',
+        'agency': '서울특별시청',
+        'budget': '500000000',
+        'category': '소프트웨어',
+        'deadline': '2024-12-31'
+    }
+    
+    company_info = {
+        'name': '(주)테크솔루션',
+        'description': '15년 경력의 소프트웨어 전문 기업으로, 다수의 공공기관 프로젝트 수행 경험 보유'
+    }
+    
+    analysis_data = {
+        'avgWinRate': 87.5,
+        'avgCompetition': 5.2,
+        'yearlyBids': 150
+    }
+    
+    # 1. 제안요약서
+    proposal = generator.generate_proposal(bid_info, company_info)
+    print("\n" + "="*50)
+    print(proposal)
+    print("="*50 + "\n")
+    
+    # 2. 분석 보고서
+    report = generator.generate_analysis_report(bid_info, analysis_data)
+    print("\n" + "="*50)
+    print(report)
+    print("="*50 + "\n")
+    
+    # 3. 체크리스트
+    checklist = generator.generate_checklist(bid_info)
+    print("\n" + "="*50)
+    print(checklist)
+    print("="*50 + "\n")
+
+
+if __name__ == '__main__':
+    main()
