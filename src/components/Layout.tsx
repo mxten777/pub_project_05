@@ -77,6 +77,7 @@ export default function Layout({ children }: LayoutProps) {
                         : 'text-gray-700 hover:bg-indigo-50 hover:text-indigo-600'
                     }`}
                     onClick={() => setSidebarOpen(false)}
+                    data-testid={`nav-${item.href === '/' ? 'dashboard' : item.href.slice(1)}`}
                   >
                     <item.icon className="h-5 w-5" />
                     <span>{item.name}</span>
@@ -112,6 +113,7 @@ export default function Layout({ children }: LayoutProps) {
                       ? 'gradient-primary text-white shadow-lg shadow-indigo-500/50 scale-[1.02]'
                       : 'text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 hover:scale-[1.01]'
                   }`}
+                  data-testid={`nav-${item.href === '/' ? 'dashboard' : item.href.slice(1)}`}
                 >
                   <item.icon className={`h-5 w-5 transition-transform duration-200 ${isActive ? '' : 'group-hover:scale-110'}`} />
                   <span>{item.name}</span>

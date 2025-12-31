@@ -214,6 +214,7 @@ export default function BidDetail() {
                 ? 'border-yellow-400 bg-yellow-50 text-yellow-600 hover:scale-110'
                 : 'border-gray-200 bg-white hover:border-yellow-400 hover:bg-yellow-50'
             }`}
+            data-testid="bid-favorite"
           >
             <Star className={`h-5 w-5 ${isFavorite ? 'fill-current' : ''}`} />
           </button>
@@ -320,6 +321,7 @@ export default function BidDetail() {
                       ? 'bg-white text-indigo-600 shadow-lg -mb-px border-b-2 border-indigo-600'
                       : 'text-gray-600 hover:text-indigo-600 hover:bg-gray-50'
                   }`}
+                  data-testid={`bidtab-${tab.id}`}
                 >
                   <Icon className="h-4 w-4" />
                   {tab.label}

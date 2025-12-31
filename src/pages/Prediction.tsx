@@ -165,6 +165,7 @@ export default function Prediction() {
               onClick={handlePredict}
               disabled={loading || !formData.agency || !formData.budget}
               className="w-full px-6 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl hover:from-indigo-700 hover:to-purple-700 disabled:from-gray-300 disabled:to-gray-400 disabled:cursor-not-allowed font-bold text-sm sm:text-base shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 group"
+              data-testid="predict-run"
             >
               {loading ? (
                 <>
@@ -353,7 +354,7 @@ export default function Prediction() {
             </div>
 
             {/* Warning Note */}
-            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 sm:p-4">
+            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 sm:p-4" data-testid="predict-disclaimer">
               <div className="flex gap-2 sm:gap-3">
                 <AlertCircle className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-600 flex-shrink-0 mt-0.5" />
                 <div className="text-xs sm:text-sm text-yellow-800">

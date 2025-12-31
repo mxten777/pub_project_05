@@ -1,0 +1,92 @@
+{
+  "total_records": 200,
+  "valid_records": 199,
+  "field_stats": {
+    "id": {
+      "missing_count": 0,
+      "missing_rate": 0.0
+    },
+    "title": {
+      "missing_count": 1,
+      "missing_rate": 0.5
+    },
+    "agency": {
+      "missing_count": 1,
+      "missing_rate": 0.5
+    },
+    "category": {
+      "missing_count": 0,
+      "missing_rate": 0.0
+    },
+    "region": {
+      "missing_count": 0,
+      "missing_rate": 0.0
+    },
+    "budget": {
+      "missing_count": 0,
+      "missing_rate": 0.0
+    },
+    "deadline": {
+      "missing_count": 0,
+      "missing_rate": 0.0
+    },
+    "status": {
+      "missing_count": 0,
+      "missing_rate": 0.0
+    },
+    "createdAt": {
+      "missing_count": 0,
+      "missing_rate": 0.0
+    }
+  },
+  "type_errors": {
+    "budget": {
+      "error_count": 0,
+      "error_rate": 0.0
+    },
+    "deadline": {
+      "error_count": 1,
+      "error_rate": 0.5
+    },
+    "status": {
+      "error_count": 1,
+      "error_rate": 0.5
+    }
+  },
+  "duplicates": {
+    "duplicate_ids": [
+      "5"
+    ],
+    "duplicate_count": 1,
+    "duplicate_rate": 0.5
+  },
+  "anomalies": {
+    "negative_budget": {
+      "count": 1,
+      "rate": 0.5
+    },
+    "short_title": {
+      "count": 1,
+      "rate": 0.5
+    },
+    "long_title": {
+      "count": 0,
+      "rate": 0.0
+    },
+    "past_deadline": {
+      "count": 199,
+      "rate": 99.5
+    }
+  },
+  "summary": {
+    "completeness_score": 99.74,
+    "parsing_score": 99.5,
+    "duplicate_rate": 0.5,
+    "critical_missing_rate": 0.33,
+    "type_error_rate": 0.33
+  },
+  "judgment": "PASS",
+  "records_with_missing_rate": 1.0,
+  "judgment_reason": "모든 품질 기준 충족",
+  "pass_criteria_met": "4/4"
+}

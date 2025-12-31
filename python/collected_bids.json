@@ -1,0 +1,57 @@
+[
+  {
+    "id": "1",
+    "title": "2024년 스마트시티 통합플랫폼 구축사업",
+    "agency": "서울특별시청",
+    "category": "소프트웨어",
+    "region": "서울",
+    "budget": 500000000,
+    "deadline": "2024-12-31T23:59:59",
+    "status": "active",
+    "createdAt": "2024-12-01T00:00:00"
+  },
+  {
+    "id": "2",
+    "title": "공공데이터 개방 시스템 고도화",
+    "agency": "경기도청",
+    "category": "소프트웨어",
+    "region": "경기",
+    "budget": 300000000,
+    "deadline": "2024-12-25T18:00:00",
+    "status": "active",
+    "createdAt": "2024-12-01T00:00:00"
+  },
+  {
+    "id": "3",
+    "title": "청사 리모델링 공사",
+    "agency": "인천광역시청",
+    "category": "건설",
+    "region": "인천",
+    "budget": 1200000000,
+    "deadline": "2024-12-28T17:00:00",
+    "status": "modified",
+    "createdAt": "2024-12-01T00:00:00"
+  },
+  {
+    "id": "4",
+    "title": "AI 기반 교통관제 시스템 구축",
+    "agency": "부산광역시청",
+    "category": "소프트웨어",
+    "region": "부산",
+    "budget": 800000000,
+    "deadline": "2025-01-10T18:00:00",
+    "status": "active",
+    "createdAt": "2024-12-01T00:00:00"
+  },
+  {
+    "id": "5",
+    "title": "친환경 에너지 설비 구축",
+    "agency": "대전광역시청",
+    "category": "건설",
+    "region": "대전",
+    "budget": 2000000000,
+    "deadline": "2025-01-15T17:00:00",
+    "status": "active",
+    "createdAt": "2024-12-01T00:00:00"
+  }
+]

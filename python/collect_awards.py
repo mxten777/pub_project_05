@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-나라장터 API 입찰 데이터 수집 스크립트 (MVP v1.2 - Step 2 Real Integration)
-공공데이터포털 조달청_나라장터 입찰공고정보서비스 04 연동
+나라장터 API 낙찰 데이터 수집 스크립트 (MVP v1.2 - Step 2)
+공공데이터포털 조달청_나라장터 낙찰정보서비스 연동
 
 실행 예시:
-    python collect_bids.py --source mock --count 200 --run-id test001
-    python collect_bids.py --source real --pages 3 --run-id prod001
+    python collect_awards.py --source mock --count 50 --run-id test001
+    python collect_awards.py --source real --pages 2 --run-id prod001
 """
 
 import os
@@ -29,11 +29,11 @@ except ImportError:
 # - Decoding Key: requests params 방식에서 자동 인코딩됨 (권장)
 # - Encoding Key: URL 직결 방식에서만 사용 (이중 인코딩 위험)
 API_KEY = os.getenv('DATA_PORTAL_API_KEY', '')
-BASE_URL = 'http://apis.data.go.kr/1230000/BidPublicInfoService04'
+BASE_URL = 'http://apis.data.go.kr/1230000/ScsbidInfoService04'
 
 
-class BidDataCollector:
-    """입찰 공고 데이터 수집 클래스 (Step 2: Real API Integration)"""
+class AwardDataCollector:
+    """낙찰(개찰) 데이터 수집 클래스"""
     
     def __init__(self, source: str = 'mock'):
         """
@@ -48,74 +48,55 @@ class BidDataCollector:
         if source == 'real' and not API_KEY:
             raise ValueError("❌ API 키가 없습니다. 환경 변수 DATA_PORTAL_API_KEY를 설정하세요.")
     
-    def collect(self, count: int = 200, pages: int = 3) -> List[Dict]:
+    def collect(self, count: int = 50, pages: int = 2) -> List[Dict]:
         """
-        입찰 데이터 수집
+        낙찰 데이터 수집
         
         Args:
             count: Mock 모드 생성 레코드 수
-            pages: Real 모드 페이지 수 (numOfRows=100 기준)
+            pages: Real 모드 페이지 수
             
         Returns:
-            수집된 입찰 데이터 리스트
+            수집된 낙찰 데이터 리스트
         """
         if self.source == 'mock':
-            print(f"🎭 Mock 모드: {count}건 샘플 데이터 생성 중...")
+            print(f"🎭 Mock 모드: {count}건 낙찰 데이터 생성 중...")
             return self._generate_mock_data(count)
         else:
-            print(f"📡 Real 모드: 최대 {pages}페이지 입찰 공고 수집 시작...")
+            print(f"📡 Real 모드: 최대 {pages}페이지 낙찰 데이터 수집 시작...")
             return self._fetch_real_data(pages)
     
     def _generate_mock_data(self, count: int) -> List[Dict]:
-        """Mock 샘플 데이터 생성"""
-        agencies = ['조달청', '한국정보화진흥원', '서울시청', '경기도청', '행정안전부', 
-                   '과학기술정보통신부', '국방부', '보건복지부', '교육부', '문화체육관광부']
-        categories = ['소프트웨어', '용역', '물품', '건설', '기타']
-        regions = ['서울', '경기', '인천', '부산', '대전', '대구', '광주', '울산', '세종', '강원']
-        
-        mock_bids = []
+        """Mock 낙찰 데이터 생성"""
+        mock_awards = []
         base_date = datetime.now()
         
         for i in range(count):
             bid_id = f"{base_date.year}{str(base_date.month).zfill(2)}{str(i+1).zfill(5)}"
-            deadline = base_date + timedelta(days=random.randint(7, 45))
-            announcement_date = base_date - timedelta(days=random.randint(1, 5))
+            openg_date = base_date - timedelta(days=random.randint(1, 30))
             
-            # 의도적 품질 이슈 삽입 (0.5% 미만)
-            title = f"{random.choice(['국가', '지역', '공공', '스마트'])} {random.choice(['정보화', '시스템', '플랫폼', '구축'])} 사업"
-            agency = random.choice(agencies)
-            budget = random.randint(30, 800) * 1000000
+            bidders_count = random.randint(3, 15)
+            winner_rate = random.uniform(85.0, 99.9)
+            winner_amount = random.randint(50, 700) * 1000000
             
-            # 극소수 레코드에만 문제 삽입
-            if i == count // 100:  # 1% 레코드만
-                title = ""
-            if i == count // 100 + 1:
-                budget = None
-            
-            mock_bid = {
-                'id': bid_id,
-                'title': title or "제목없음",
-                'agency': agency,
-                'category': random.choice(categories),
-                'region': random.choice(regions),
-                'budget': budget,
-                'estimatedPrice': budget * random.uniform(0.95, 1.05) if budget else None,
-                'deadline': deadline.isoformat(),
-                'announcementDate': announcement_date.isoformat(),
-                'bidMethod': random.choice(['일반경쟁입찰', '제한경쟁입찰', '지명경쟁입찰']),
-                'status': 'active',
-                'createdAt': datetime.now().isoformat(),
-                'source': 'mock',
-                'detailUrl': f"https://www.g2b.go.kr:8081/ep/invitation/publish/bidPublishDtl.do?bidno={bid_id}"
+            mock_award = {
+                'bidId': bid_id,
+                'opengDate': openg_date.isoformat(),
+                'biddersCount': bidders_count,
+                'winnerAmount': winner_amount,
+                'winnerRate': round(winner_rate, 2),
+                'winnerCompany': f"(주){random.choice(['한국', '대한', '글로벌', '테크', '솔루션'])}{random.choice(['정보', '시스템', '산업', '기술'])}",
+                'completedAt': datetime.now().isoformat(),
+                'source': 'mock'
             }
-            mock_bids.append(mock_bid)
+            mock_awards.append(mock_award)
         
-        print(f"✅ Mock 데이터 {len(mock_bids)}건 생성 완료")
-        return mock_bids
+        print(f"✅ Mock 데이터 {len(mock_awards)}건 생성 완료")
+        return mock_awards
     
     def _fetch_real_data(self, pages: int) -> List[Dict]:
-        """실제 나라장터 API 호출"""
-        all_bids = []
+        """실제 나라장터 낙찰정보 API 호출"""
+        all_awards = []
         
         end_date = datetime.now()
         start_date = end_date - timedelta(days=30)  # 최근 30일
@@ -127,16 +108,16 @@ class BidDataCollector:
                 'serviceKey': self.api_key,
                 'numOfRows': 100,
                 'pageNo': page,
-                'inqryDiv': '1',  # 공고일 기준
+                'inqryDiv': '1',  # 개찰일 기준
                 'inqryBgnDt': start_date.strftime('%Y%m%d'),
                 'inqryEndDt': end_date.strftime('%Y%m%d'),
                 'type': 'json'
             }
             
             response_data = self._api_call_with_retry(
-                f'{self.base_url}/getBidPblancListInfoServc01',
+                f'{self.base_url}/getOpengInfoListServc01',
                 params,
-                operation='getBidPblancListInfoServc01',
+                operation='getOpengInfoListServc01',
                 page=page
             )
             
@@ -152,12 +133,12 @@ class BidDataCollector:
                     break
                 
                 # 정규화
-                normalized = self._normalize_bids(items)
-                all_bids.extend(normalized)
+                normalized = self._normalize_awards(items)
+                all_awards.extend(normalized)
                 
-                print(f"✅ 페이지 {page}: {len(normalized)}건 수집 완료 (누적: {len(all_bids)}건)")
+                print(f"✅ 페이지 {page}: {len(normalized)}건 수집 완료 (누적: {len(all_awards)}건)")
                 
-                # Rate Limit 방지 (페이지 간 1초 대기)
+                # Rate Limit 방지
                 if page < pages:
                     time.sleep(1)
                     
@@ -165,8 +146,8 @@ class BidDataCollector:
                 print(f"❌ 페이지 {page} 데이터 파싱 실패: {e}")
                 continue
         
-        print(f"\n✅ 총 {len(all_bids)}건 수집 완료")
-        return all_bids
+        print(f"\n✅ 총 {len(all_awards)}건 수집 완료")
+        return all_awards
     
     def _api_call_with_retry(self, url: str, params: Dict, operation: str, page: int, max_retries: int = 6) -> Optional[Dict]:
         """재시도 로직 포함 API 호출 (지수 백오프 + 지터)"""
@@ -231,35 +212,29 @@ class BidDataCollector:
         
         return None
     
-    def _normalize_bids(self, raw_items: List[Dict]) -> List[Dict]:
+    def _normalize_awards(self, raw_items: List[Dict]) -> List[Dict]:
         """API 응답 → Firestore 스키마 변환"""
         normalized = []
         
         for item in raw_items:
             try:
-                bid = {
-                    'id': self._safe_get(item, 'bidNtceNo', required=True),
-                    'title': self._safe_get(item, 'bidNtceNm', required=True, default="제목없음"),
-                    'agency': self._safe_get(item, 'ntceInsttNm', required=True, default="기관미상"),
-                    'category': self._categorize(item.get('bidNtceNm', '')),
-                    'region': self._extract_region(item.get('ntceInsttNm', '')),
-                    'budget': self._parse_number(item.get('asignBdgtAmt')),
-                    'estimatedPrice': self._parse_number(item.get('presmptPrce')),
-                    'deadline': self._parse_date(item.get('bidClseDt')),
-                    'announcementDate': self._parse_date(item.get('bidNtceDt')),
-                    'bidMethod': item.get('bidMethdNm', '').strip() or None,
-                    'status': 'active',
-                    'createdAt': datetime.now().isoformat(),
-                    'source': 'g2b_api',
-                    'detailUrl': item.get('bidNtceDtlUrl', '').strip() or None
+                award = {
+                    'bidId': item.get('bidNtceNo', '').strip(),
+                    'opengDate': self._parse_date(item.get('opengDt')),
+                    'biddersCount': self._parse_int(item.get('rbidCnt')),
+                    'winnerAmount': self._parse_number(item.get('sucsfbidAmt')),
+                    'winnerRate': self._parse_number(item.get('sucsfbidRate')),
+                    'winnerCompany': item.get('sucsfbidCorpNm', '').strip() or None,
+                    'completedAt': datetime.now().isoformat(),
+                    'source': 'g2b_api'
                 }
                 
-                # 필수 필드 검증
-                if not bid['id']:
-                    print(f"⚠️ 필수 필드(id) 누락. 스킵: {item}")
+                # bidId 필수
+                if not award['bidId']:
+                    print(f"⚠️ 필수 필드(bidId) 누락. 스킵: {item}")
                     continue
                 
-                normalized.append(bid)
+                normalized.append(award)
                 
             except Exception as e:
                 print(f"⚠️ 레코드 변환 실패: {e} - {item}")
@@ -267,78 +242,47 @@ class BidDataCollector:
         
         return normalized
     
-    def _safe_get(self, item: Dict, key: str, required: bool = False, default: str = None) -> Optional[str]:
-        """안전한 필드 추출"""
-        value = item.get(key, '').strip()
-        
-        if not value:
-            if required:
-                return default
-            return None
-        
-        return value
-    
     def _parse_number(self, value) -> Optional[float]:
-        """숫자 변환 (실패 시 null)"""
+        """숫자 변환"""
         if value is None:
             return None
-        
         try:
             return float(str(value).replace(',', ''))
         except:
             return None
     
+    def _parse_int(self, value) -> Optional[int]:
+        """정수 변환"""
+        if value is None:
+            return None
+        try:
+            return int(str(value).replace(',', ''))
+        except:
+            return None
+    
     def _parse_date(self, value) -> Optional[str]:
-        """날짜 변환 (실패 시 null)"""
+        """날짜 변환"""
         if not value:
             return None
-        
         try:
             if len(str(value)) >= 8:
                 dt = datetime.strptime(str(value)[:8], '%Y%m%d')
                 return dt.isoformat()
         except:
             pass
-        
         return None
     
-    def _categorize(self, title: str) -> str:
-        """공고명 기반 업종 분류"""
-        title_lower = title.lower()
-        
-        if any(kw in title_lower for kw in ['건설', '공사', '시설', '건축']):
-            return '건설'
-        elif any(kw in title_lower for kw in ['소프트웨어', 'sw', '시스템', '정보화', 'ict']):
-            return '소프트웨어'
-        elif any(kw in title_lower for kw in ['용역', '서비스', '컨설팅', '자문']):
-            return '용역'
-        elif any(kw in title_lower for kw in ['물품', '구매', '납품', '제품']):
-            return '물품'
-        else:
-            return '기타'
-    
-    def _extract_region(self, agency: str) -> str:
-        """기관명 기반 지역 추출"""
-        regions = ['서울', '경기', '인천', '부산', '대구', '광주', '대전', '울산',
-                  '세종', '강원', '충북', '충남', '전북', '전남', '경북', '경남', '제주']
-        
-        for region in regions:
-            if region in agency:
-                return region
-        
-        return '기타'
-    
-    def save_to_json(self, bids: List[Dict], run_id: str, output_dir: str = './') -> str:
+    def save_to_json(self, awards: List[Dict], run_id: str, output_dir: str = './') -> str:
         """JSON 파일로 저장"""
         os.makedirs(output_dir, exist_ok=True)
         
-        filename = f"collected_bids_{self.source}_{run_id}.json"
+        filename = f"collected_awards_{self.source}_{run_id}.json"
         filepath = os.path.join(output_dir, filename)
         
         with open(filepath, 'w', encoding='utf-8') as f:
-            json.dump(bids, f, ensure_ascii=False, indent=2)
+            json.dump(awards, f, ensure_ascii=False, indent=2)
         
-        print(f"💾 저장 완료: {filepath} ({len(bids)}건)")
+        print(f"💾 저장 완료: {filepath} ({len(awards)}건)")
         return filepath
     
     def save_retry_queue(self, output_dir: str = './'):
@@ -347,9 +291,8 @@ class BidDataCollector:
             return
         
         os.makedirs(output_dir, exist_ok=True)
-        filepath = os.path.join(output_dir, 'retry_queue.json')
+        filepath = os.path.join(output_dir, 'retry_queue_awards.json')
         
-        # 기존 큐 로드
         existing_queue = []
         if os.path.exists(filepath):
             try:
@@ -358,27 +301,52 @@ class BidDataCollector:
             except:
                 pass
         
-        # 병합
         combined_queue = existing_queue + self.retry_queue
         
         with open(filepath, 'w', encoding='utf-8') as f:
             json.dump({'queue': combined_queue}, f, ensure_ascii=False, indent=2)
         
         print(f"📝 재시도 큐 저장: {filepath} ({len(self.retry_queue)}건 추가, 총 {len(combined_queue)}건)")
+    
+    def calculate_match_rate(self, awards: List[Dict], bids_file: str) -> Dict:
+        """입찰 데이터와 조인키 매칭율 계산"""
+        if not os.path.exists(bids_file):
+            print(f"⚠️ 입찰 파일을 찾을 수 없습니다: {bids_file}")
+            return {'match_rate': 0, 'matched_count': 0, 'total_awards': len(awards)}
+        
+        try:
+            with open(bids_file, 'r', encoding='utf-8') as f:
+                bids = json.load(f)
+            
+            bid_ids = set([b['id'] for b in bids])
+            matched_awards = [a for a in awards if a['bidId'] in bid_ids]
+            match_rate = len(matched_awards) / len(awards) * 100 if awards else 0
+            
+            return {
+                'match_rate': round(match_rate, 2),
+                'matched_count': len(matched_awards),
+                'total_awards': len(awards),
+                'total_bids': len(bids)
+            }
+        except Exception as e:
+            print(f"⚠️ 매칭율 계산 실패: {e}")
+            return {'match_rate': 0, 'matched_count': 0, 'total_awards': len(awards)}
 
 
 def main():
-    parser = argparse.ArgumentParser(description='나라장터 입찰 데이터 수집')
+    parser = argparse.ArgumentParser(description='나라장터 낙찰 데이터 수집')
     parser.add_argument('--source', choices=['mock', 'real'], default='mock',
                        help='데이터 소스: mock (샘플) 또는 real (실제 API)')
-    parser.add_argument('--count', type=int, default=200,
-                       help='Mock 모드 생성 레코드 수 (기본: 200)')
-    parser.add_argument('--pages', type=int, default=3,
-                       help='Real 모드 페이지 수 (기본: 3, numOfRows=100)')
+    parser.add_argument('--count', type=int, default=50,
+                       help='Mock 모드 생성 레코드 수 (기본: 50)')
+    parser.add_argument('--pages', type=int, default=2,
+                       help='Real 모드 페이지 수 (기본: 2)')
     parser.add_argument('--run-id', type=str,
                        help='실행 ID (없으면 timestamp 자동 생성)')
     parser.add_argument('--output-dir', type=str, default='./',
                        help='출력 디렉토리 (기본: ./)')
+    parser.add_argument('--bids-file', type=str,
+                       help='입찰 데이터 파일 경로 (조인키 매칭용)')
     
     args = parser.parse_args()
     
@@ -386,44 +354,51 @@ def main():
     run_id = args.run_id if args.run_id else datetime.now().strftime('%Y%m%d_%H%M%S')
     
     print("\n" + "="*70)
-    print("🚀 Smart Bid Radar - 입찰 데이터 수집 (Step 2: Real Integration)")
+    print("🏆 Smart Bid Radar - 낙찰 데이터 수집 (Step 2)")
     print("="*70)
     print(f"소스: {args.source.upper()}")
     print(f"Run ID: {run_id}")
     if args.source == 'mock':
         print(f"생성 레코드 수: {args.count}건")
     else:
-        print(f"수집 페이지 수: {args.pages}페이지 (최대 {args.pages * 100}건)")
+        print(f"수집 페이지 수: {args.pages}페이지")
     print("="*70 + "\n")
     
     # 수집 실행
     try:
-        collector = BidDataCollector(source=args.source)
+        collector = AwardDataCollector(source=args.source)
         
         if args.source == 'mock':
-            bids = collector.collect(count=args.count)
+            awards = collector.collect(count=args.count)
         else:
-            bids = collector.collect(pages=args.pages)
+            awards = collector.collect(pages=args.pages)
         
-        if not bids:
+        if not awards:
             print("❌ 수집된 데이터가 없습니다.")
             return
         
         # JSON 저장
-        filepath = collector.save_to_json(bids, run_id, args.output_dir)
+        filepath = collector.save_to_json(awards, run_id, args.output_dir)
         
         # 재시도 큐 저장
         collector.save_retry_queue(args.output_dir)
+        
+        # 조인키 매칭율 계산 (옵션)
+        match_result = None
+        if args.bids_file:
+            print(f"\n🔗 입찰-낙찰 조인키 매칭 분석 중...")
+            match_result = collector.calculate_match_rate(awards, args.bids_file)
+            print(f"✅ 매칭율: {match_result['match_rate']}% ({match_result['matched_count']}/{match_result['total_awards']})")
         
         # 결과 요약
         print("\n" + "="*70)
         print("📊 수집 결과 요약")
         print("="*70)
-        print(f"총 레코드 수: {len(bids)}건")
+        print(f"총 레코드 수: {len(awards)}건")
         print(f"저장 파일: {filepath}")
         print(f"재시도 큐: {len(collector.retry_queue)}건")
-        print("\n💡 다음 단계:")
-        print(f"   python data_quality.py --source real --input {os.path.basename(filepath)} --run-id {run_id}")
+        if match_result:
+            print(f"입찰-낙찰 매칭율: {match_result['match_rate']}%")
         print("="*70 + "\n")
         
     except Exception as e:

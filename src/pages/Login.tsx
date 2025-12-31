@@ -78,6 +78,7 @@ export default function Login() {
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full pl-12 pr-4 py-3 border-2 border-indigo-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                   placeholder="your@email.com"
+                  data-testid="auth-email"
                   disabled={loading}
                 />
               </div>
@@ -97,6 +98,7 @@ export default function Login() {
                   className="w-full pl-12 pr-4 py-3 border-2 border-indigo-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                   placeholder="••••••••"
                   disabled={loading}
+                  data-testid="auth-password"
                 />
               </div>
             </div>
@@ -114,6 +116,7 @@ export default function Login() {
               type="submit"
               disabled={loading}
               className="w-full gradient-primary text-white py-3 rounded-xl font-semibold hover:scale-[1.02] transition-all duration-300 shadow-lg shadow-indigo-500/50 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              data-testid="auth-submit"
             >
               {loading ? (
                 <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />

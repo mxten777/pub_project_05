@@ -1,0 +1,602 @@
+[
+  {
+    "bidId": "20260100001",
+    "opengDate": "2025-12-27T00:51:51.529483",
+    "biddersCount": 7,
+    "winnerAmount": 221000000,
+    "winnerRate": 85.04,
+    "winnerCompany": "(주)테크정보",
+    "completedAt": "2026-01-01T00:51:51.529534",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100002",
+    "opengDate": "2025-12-30T00:51:51.529483",
+    "biddersCount": 7,
+    "winnerAmount": 410000000,
+    "winnerRate": 85.71,
+    "winnerCompany": "(주)솔루션시스템",
+    "completedAt": "2026-01-01T00:51:51.529560",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100003",
+    "opengDate": "2025-12-10T00:51:51.529483",
+    "biddersCount": 7,
+    "winnerAmount": 376000000,
+    "winnerRate": 96.45,
+    "winnerCompany": "(주)대한정보",
+    "completedAt": "2026-01-01T00:51:51.529578",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100004",
+    "opengDate": "2025-12-31T00:51:51.529483",
+    "biddersCount": 8,
+    "winnerAmount": 676000000,
+    "winnerRate": 85.53,
+    "winnerCompany": "(주)테크정보",
+    "completedAt": "2026-01-01T00:51:51.529594",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100005",
+    "opengDate": "2025-12-28T00:51:51.529483",
+    "biddersCount": 11,
+    "winnerAmount": 510000000,
+    "winnerRate": 88.23,
+    "winnerCompany": "(주)글로벌정보",
+    "completedAt": "2026-01-01T00:51:51.529611",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100006",
+    "opengDate": "2025-12-18T00:51:51.529483",
+    "biddersCount": 3,
+    "winnerAmount": 92000000,
+    "winnerRate": 92.52,
+    "winnerCompany": "(주)대한기술",
+    "completedAt": "2026-01-01T00:51:51.529627",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100007",
+    "opengDate": "2025-12-25T00:51:51.529483",
+    "biddersCount": 15,
+    "winnerAmount": 184000000,
+    "winnerRate": 95.72,
+    "winnerCompany": "(주)솔루션정보",
+    "completedAt": "2026-01-01T00:51:51.529642",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100008",
+    "opengDate": "2025-12-28T00:51:51.529483",
+    "biddersCount": 5,
+    "winnerAmount": 449000000,
+    "winnerRate": 85.89,
+    "winnerCompany": "(주)대한산업",
+    "completedAt": "2026-01-01T00:51:51.529658",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100009",
+    "opengDate": "2025-12-24T00:51:51.529483",
+    "biddersCount": 14,
+    "winnerAmount": 377000000,
+    "winnerRate": 99.27,
+    "winnerCompany": "(주)솔루션시스템",
+    "completedAt": "2026-01-01T00:51:51.529668",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100010",
+    "opengDate": "2025-12-04T00:51:51.529483",
+    "biddersCount": 14,
+    "winnerAmount": 323000000,
+    "winnerRate": 88.41,
+    "winnerCompany": "(주)솔루션기술",
+    "completedAt": "2026-01-01T00:51:51.529677",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100011",
+    "opengDate": "2025-12-28T00:51:51.529483",
+    "biddersCount": 15,
+    "winnerAmount": 278000000,
+    "winnerRate": 86.19,
+    "winnerCompany": "(주)대한시스템",
+    "completedAt": "2026-01-01T00:51:51.529686",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100012",
+    "opengDate": "2025-12-04T00:51:51.529483",
+    "biddersCount": 15,
+    "winnerAmount": 85000000,
+    "winnerRate": 96.57,
+    "winnerCompany": "(주)솔루션정보",
+    "completedAt": "2026-01-01T00:51:51.529695",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100013",
+    "opengDate": "2025-12-16T00:51:51.529483",
+    "biddersCount": 8,
+    "winnerAmount": 273000000,
+    "winnerRate": 91.94,
+    "winnerCompany": "(주)대한정보",
+    "completedAt": "2026-01-01T00:51:51.529705",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100014",
+    "opengDate": "2025-12-06T00:51:51.529483",
+    "biddersCount": 13,
+    "winnerAmount": 633000000,
+    "winnerRate": 96.99,
+    "winnerCompany": "(주)한국산업",
+    "completedAt": "2026-01-01T00:51:51.529713",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100015",
+    "opengDate": "2025-12-20T00:51:51.529483",
+    "biddersCount": 3,
+    "winnerAmount": 673000000,
+    "winnerRate": 90.29,
+    "winnerCompany": "(주)대한기술",
+    "completedAt": "2026-01-01T00:51:51.529722",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100016",
+    "opengDate": "2025-12-06T00:51:51.529483",
+    "biddersCount": 6,
+    "winnerAmount": 664000000,
+    "winnerRate": 96.68,
+    "winnerCompany": "(주)한국산업",
+    "completedAt": "2026-01-01T00:51:51.529731",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100017",
+    "opengDate": "2025-12-21T00:51:51.529483",
+    "biddersCount": 4,
+    "winnerAmount": 198000000,
+    "winnerRate": 92.47,
+    "winnerCompany": "(주)한국산업",
+    "completedAt": "2026-01-01T00:51:51.529740",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100018",
+    "opengDate": "2025-12-05T00:51:51.529483",
+    "biddersCount": 4,
+    "winnerAmount": 303000000,
+    "winnerRate": 90.05,
+    "winnerCompany": "(주)대한정보",
+    "completedAt": "2026-01-01T00:51:51.529751",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100019",
+    "opengDate": "2025-12-03T00:51:51.529483",
+    "biddersCount": 7,
+    "winnerAmount": 549000000,
+    "winnerRate": 86.52,
+    "winnerCompany": "(주)글로벌정보",
+    "completedAt": "2026-01-01T00:51:51.529759",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100020",
+    "opengDate": "2025-12-11T00:51:51.529483",
+    "biddersCount": 7,
+    "winnerAmount": 88000000,
+    "winnerRate": 96.8,
+    "winnerCompany": "(주)대한기술",
+    "completedAt": "2026-01-01T00:51:51.529768",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100021",
+    "opengDate": "2025-12-28T00:51:51.529483",
+    "biddersCount": 3,
+    "winnerAmount": 559000000,
+    "winnerRate": 97.88,
+    "winnerCompany": "(주)대한정보",
+    "completedAt": "2026-01-01T00:51:51.529777",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100022",
+    "opengDate": "2025-12-30T00:51:51.529483",
+    "biddersCount": 7,
+    "winnerAmount": 388000000,
+    "winnerRate": 88.24,
+    "winnerCompany": "(주)한국정보",
+    "completedAt": "2026-01-01T00:51:51.529786",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100023",
+    "opengDate": "2025-12-30T00:51:51.529483",
+    "biddersCount": 5,
+    "winnerAmount": 681000000,
+    "winnerRate": 99.73,
+    "winnerCompany": "(주)대한시스템",
+    "completedAt": "2026-01-01T00:51:51.529795",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100024",
+    "opengDate": "2025-12-27T00:51:51.529483",
+    "biddersCount": 7,
+    "winnerAmount": 522000000,
+    "winnerRate": 97.24,
+    "winnerCompany": "(주)솔루션기술",
+    "completedAt": "2026-01-01T00:51:51.529804",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100025",
+    "opengDate": "2025-12-24T00:51:51.529483",
+    "biddersCount": 5,
+    "winnerAmount": 536000000,
+    "winnerRate": 99.88,
+    "winnerCompany": "(주)대한시스템",
+    "completedAt": "2026-01-01T00:51:51.529813",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100026",
+    "opengDate": "2025-12-08T00:51:51.529483",
+    "biddersCount": 12,
+    "winnerAmount": 472000000,
+    "winnerRate": 99.11,
+    "winnerCompany": "(주)글로벌기술",
+    "completedAt": "2026-01-01T00:51:51.529822",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100027",
+    "opengDate": "2025-12-13T00:51:51.529483",
+    "biddersCount": 4,
+    "winnerAmount": 618000000,
+    "winnerRate": 88.03,
+    "winnerCompany": "(주)대한시스템",
+    "completedAt": "2026-01-01T00:51:51.529831",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100028",
+    "opengDate": "2025-12-25T00:51:51.529483",
+    "biddersCount": 3,
+    "winnerAmount": 512000000,
+    "winnerRate": 93.21,
+    "winnerCompany": "(주)테크정보",
+    "completedAt": "2026-01-01T00:51:51.529843",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100029",
+    "opengDate": "2025-12-09T00:51:51.529483",
+    "biddersCount": 10,
+    "winnerAmount": 151000000,
+    "winnerRate": 87.51,
+    "winnerCompany": "(주)솔루션기술",
+    "completedAt": "2026-01-01T00:51:51.529851",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100030",
+    "opengDate": "2025-12-25T00:51:51.529483",
+    "biddersCount": 4,
+    "winnerAmount": 457000000,
+    "winnerRate": 97.08,
+    "winnerCompany": "(주)테크기술",
+    "completedAt": "2026-01-01T00:51:51.529860",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100031",
+    "opengDate": "2025-12-02T00:51:51.529483",
+    "biddersCount": 14,
+    "winnerAmount": 603000000,
+    "winnerRate": 93.22,
+    "winnerCompany": "(주)솔루션산업",
+    "completedAt": "2026-01-01T00:51:51.529869",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100032",
+    "opengDate": "2025-12-27T00:51:51.529483",
+    "biddersCount": 10,
+    "winnerAmount": 662000000,
+    "winnerRate": 92.21,
+    "winnerCompany": "(주)한국기술",
+    "completedAt": "2026-01-01T00:51:51.529877",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100033",
+    "opengDate": "2025-12-15T00:51:51.529483",
+    "biddersCount": 7,
+    "winnerAmount": 639000000,
+    "winnerRate": 96.19,
+    "winnerCompany": "(주)대한산업",
+    "completedAt": "2026-01-01T00:51:51.529886",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100034",
+    "opengDate": "2025-12-19T00:51:51.529483",
+    "biddersCount": 14,
+    "winnerAmount": 252000000,
+    "winnerRate": 98.03,
+    "winnerCompany": "(주)솔루션시스템",
+    "completedAt": "2026-01-01T00:51:51.529895",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100035",
+    "opengDate": "2025-12-25T00:51:51.529483",
+    "biddersCount": 15,
+    "winnerAmount": 284000000,
+    "winnerRate": 98.92,
+    "winnerCompany": "(주)글로벌산업",
+    "completedAt": "2026-01-01T00:51:51.529904",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100036",
+    "opengDate": "2025-12-19T00:51:51.529483",
+    "biddersCount": 5,
+    "winnerAmount": 589000000,
+    "winnerRate": 93.75,
+    "winnerCompany": "(주)글로벌기술",
+    "completedAt": "2026-01-01T00:51:51.529912",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100037",
+    "opengDate": "2025-12-19T00:51:51.529483",
+    "biddersCount": 9,
+    "winnerAmount": 416000000,
+    "winnerRate": 94.13,
+    "winnerCompany": "(주)테크정보",
+    "completedAt": "2026-01-01T00:51:51.529921",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100038",
+    "opengDate": "2025-12-09T00:51:51.529483",
+    "biddersCount": 9,
+    "winnerAmount": 487000000,
+    "winnerRate": 96.88,
+    "winnerCompany": "(주)글로벌산업",
+    "completedAt": "2026-01-01T00:51:51.529930",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100039",
+    "opengDate": "2025-12-31T00:51:51.529483",
+    "biddersCount": 15,
+    "winnerAmount": 461000000,
+    "winnerRate": 85.3,
+    "winnerCompany": "(주)테크시스템",
+    "completedAt": "2026-01-01T00:51:51.529939",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100040",
+    "opengDate": "2025-12-07T00:51:51.529483",
+    "biddersCount": 9,
+    "winnerAmount": 539000000,
+    "winnerRate": 96.96,
+    "winnerCompany": "(주)솔루션시스템",
+    "completedAt": "2026-01-01T00:51:51.529948",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100041",
+    "opengDate": "2025-12-28T00:51:51.529483",
+    "biddersCount": 13,
+    "winnerAmount": 149000000,
+    "winnerRate": 96.29,
+    "winnerCompany": "(주)글로벌정보",
+    "completedAt": "2026-01-01T00:51:51.529957",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100042",
+    "opengDate": "2025-12-22T00:51:51.529483",
+    "biddersCount": 12,
+    "winnerAmount": 223000000,
+    "winnerRate": 94.65,
+    "winnerCompany": "(주)솔루션산업",
+    "completedAt": "2026-01-01T00:51:51.529966",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100043",
+    "opengDate": "2025-12-18T00:51:51.529483",
+    "biddersCount": 13,
+    "winnerAmount": 144000000,
+    "winnerRate": 95.29,
+    "winnerCompany": "(주)글로벌산업",
+    "completedAt": "2026-01-01T00:51:51.529975",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100044",
+    "opengDate": "2025-12-23T00:51:51.529483",
+    "biddersCount": 13,
+    "winnerAmount": 251000000,
+    "winnerRate": 89.51,
+    "winnerCompany": "(주)대한시스템",
+    "completedAt": "2026-01-01T00:51:51.529984",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100045",
+    "opengDate": "2025-12-31T00:51:51.529483",
+    "biddersCount": 13,
+    "winnerAmount": 78000000,
+    "winnerRate": 96.68,
+    "winnerCompany": "(주)테크정보",
+    "completedAt": "2026-01-01T00:51:51.529993",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100046",
+    "opengDate": "2025-12-11T00:51:51.529483",
+    "biddersCount": 13,
+    "winnerAmount": 692000000,
+    "winnerRate": 99.83,
+    "winnerCompany": "(주)테크시스템",
+    "completedAt": "2026-01-01T00:51:51.530001",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100047",
+    "opengDate": "2025-12-23T00:51:51.529483",
+    "biddersCount": 3,
+    "winnerAmount": 415000000,
+    "winnerRate": 91.57,
+    "winnerCompany": "(주)솔루션시스템",
+    "completedAt": "2026-01-01T00:51:51.530014",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100048",
+    "opengDate": "2025-12-31T00:51:51.529483",
+    "biddersCount": 8,
+    "winnerAmount": 146000000,
+    "winnerRate": 93.37,
+    "winnerCompany": "(주)한국시스템",
+    "completedAt": "2026-01-01T00:51:51.530023",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100049",
+    "opengDate": "2025-12-12T00:51:51.529483",
+    "biddersCount": 8,
+    "winnerAmount": 508000000,
+    "winnerRate": 90.63,
+    "winnerCompany": "(주)한국시스템",
+    "completedAt": "2026-01-01T00:51:51.530031",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100050",
+    "opengDate": "2025-12-17T00:51:51.529483",
+    "biddersCount": 8,
+    "winnerAmount": 179000000,
+    "winnerRate": 86.05,
+    "winnerCompany": "(주)대한정보",
+    "completedAt": "2026-01-01T00:51:51.530040",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100051",
+    "opengDate": "2025-12-21T00:51:51.529483",
+    "biddersCount": 6,
+    "winnerAmount": 193000000,
+    "winnerRate": 88.28,
+    "winnerCompany": "(주)테크시스템",
+    "completedAt": "2026-01-01T00:51:51.530049",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100052",
+    "opengDate": "2025-12-04T00:51:51.529483",
+    "biddersCount": 14,
+    "winnerAmount": 675000000,
+    "winnerRate": 88.09,
+    "winnerCompany": "(주)솔루션기술",
+    "completedAt": "2026-01-01T00:51:51.530058",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100053",
+    "opengDate": "2025-12-30T00:51:51.529483",
+    "biddersCount": 4,
+    "winnerAmount": 531000000,
+    "winnerRate": 85.2,
+    "winnerCompany": "(주)대한시스템",
+    "completedAt": "2026-01-01T00:51:51.530067",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100054",
+    "opengDate": "2025-12-18T00:51:51.529483",
+    "biddersCount": 13,
+    "winnerAmount": 687000000,
+    "winnerRate": 92.14,
+    "winnerCompany": "(주)대한시스템",
+    "completedAt": "2026-01-01T00:51:51.530076",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100055",
+    "opengDate": "2025-12-31T00:51:51.529483",
+    "biddersCount": 10,
+    "winnerAmount": 586000000,
+    "winnerRate": 96.36,
+    "winnerCompany": "(주)솔루션산업",
+    "completedAt": "2026-01-01T00:51:51.530084",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100056",
+    "opengDate": "2025-12-14T00:51:51.529483",
+    "biddersCount": 15,
+    "winnerAmount": 683000000,
+    "winnerRate": 86.99,
+    "winnerCompany": "(주)대한산업",
+    "completedAt": "2026-01-01T00:51:51.530093",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100057",
+    "opengDate": "2025-12-17T00:51:51.529483",
+    "biddersCount": 15,
+    "winnerAmount": 298000000,
+    "winnerRate": 89.67,
+    "winnerCompany": "(주)솔루션산업",
+    "completedAt": "2026-01-01T00:51:51.530102",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100058",
+    "opengDate": "2025-12-14T00:51:51.529483",
+    "biddersCount": 12,
+    "winnerAmount": 158000000,
+    "winnerRate": 98.78,
+    "winnerCompany": "(주)대한정보",
+    "completedAt": "2026-01-01T00:51:51.530111",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100059",
+    "opengDate": "2025-12-10T00:51:51.529483",
+    "biddersCount": 10,
+    "winnerAmount": 533000000,
+    "winnerRate": 87.71,
+    "winnerCompany": "(주)테크산업",
+    "completedAt": "2026-01-01T00:51:51.530120",
+    "source": "mock"
+  },
+  {
+    "bidId": "20260100060",
+    "opengDate": "2025-12-08T00:51:51.529483",
+    "biddersCount": 5,
+    "winnerAmount": 294000000,
+    "winnerRate": 94.25,
+    "winnerCompany": "(주)솔루션정보",
+    "completedAt": "2026-01-01T00:51:51.530129",
+    "source": "mock"
+  }
+]

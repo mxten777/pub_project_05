@@ -203,6 +203,7 @@ export default function BidRadar() {
             className="w-full pl-12 pr-4 py-3.5 border-2 border-indigo-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm sm:text-base bg-gradient-to-r from-white to-indigo-50/30 transition-all"
             value={filters.keyword || ''}
             onChange={(e) => handleFilterChange('keyword', e.target.value)}
+            data-testid="bidradar-search"
           />
         </div>
 
@@ -289,6 +290,7 @@ export default function BidRadar() {
               className="px-3 py-2 border-2 border-indigo-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm font-medium bg-white hover:border-indigo-300 transition-all"
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as any)}
+              data-testid="bidradar-sort"
             >
               <option value="latest">최신순</option>
               <option value="deadline">마감일순</option>
@@ -302,12 +304,12 @@ export default function BidRadar() {
             <p className="text-gray-500 text-sm sm:text-base">조건에 맞는 입찰 공고가 없습니다.</p>
           </div>
         ) : (
-          sortedBids.map((bid) => {
+          sortedBids.map((bid, index) => {
             const daysLeft = getDaysLeft(bid.deadline)
             const isFavorite = favorites.includes(bid.id)
             
             return (
-              <div key={bid.id} className="card-premium hover:shadow-xl hover:scale-[1.01] transition-all duration-300">
+              <div key={bid.id} className="card-premium hover:shadow-xl hover:scale-[1.01] transition-all duration-300" data-testid={`bid-item-${index}`}>
                 <div className="p-4 sm:p-6">
                   <div className="flex items-start justify-between gap-2 sm:gap-4">
                     <Link to={`/bid/${bid.id}`} className="flex-1 min-w-0">

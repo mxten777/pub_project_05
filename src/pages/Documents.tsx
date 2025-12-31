@@ -130,6 +130,7 @@ export default function Documents() {
               ? 'border-indigo-500 bg-gradient-to-br from-indigo-50 to-purple-50 scale-105 shadow-xl'
               : 'card-premium hover:scale-105 hover:border-indigo-200'
           }`}
+          data-testid="doc-template-proposal"
         >
           <div className={`w-14 h-14 rounded-xl mb-4 flex items-center justify-center transition-all ${
             documentType === 'proposal' 
@@ -151,6 +152,7 @@ export default function Documents() {
               ? 'border-purple-500 bg-gradient-to-br from-purple-50 to-pink-50 scale-105 shadow-xl'
               : 'card-premium hover:scale-105 hover:border-purple-200'
           }`}
+          data-testid="doc-template-report"
         >
           <div className={`w-14 h-14 rounded-xl mb-4 flex items-center justify-center transition-all ${
             documentType === 'report' 
@@ -172,6 +174,7 @@ export default function Documents() {
               ? 'border-pink-500 bg-gradient-to-br from-pink-50 to-rose-50 scale-105 shadow-xl'
               : 'card-premium hover:scale-105 hover:border-pink-200'
           }`}
+          data-testid="doc-template-checklist"
         >
           <div className={`w-14 h-14 rounded-xl mb-4 flex items-center justify-center transition-all ${
             documentType === 'checklist' 
@@ -238,6 +241,7 @@ export default function Documents() {
               onClick={handleGenerate}
               disabled={generating || !formData.bidTitle}
               className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-pink-600 to-rose-600 text-white rounded-xl hover:from-pink-700 hover:to-rose-700 disabled:from-gray-300 disabled:to-gray-400 disabled:cursor-not-allowed font-bold text-sm sm:text-base shadow-lg hover:shadow-xl transition-all duration-300 group"
+              data-testid="doc-generate"
             >
               {generating ? (
                 <>
@@ -281,15 +285,15 @@ export default function Documents() {
             </div>
 
             <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <button className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 font-bold shadow-lg hover:shadow-xl transition-all duration-300">
+              <button className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 font-bold shadow-lg hover:shadow-xl transition-all duration-300" data-testid="doc-download-word">
                 <Download className="h-5 w-5" />
                 Word
               </button>
-              <button className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-red-600 to-pink-600 text-white rounded-xl hover:from-red-700 hover:to-pink-700 font-bold shadow-lg hover:shadow-xl transition-all duration-300">
+              <button className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-red-600 to-pink-600 text-white rounded-xl hover:from-red-700 hover:to-pink-700 font-bold shadow-lg hover:shadow-xl transition-all duration-300" data-testid="doc-download-pdf">
                 <Download className="h-5 w-5" />
                 PDF
               </button>
-              <button className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl hover:from-green-700 hover:to-emerald-700 font-bold shadow-lg hover:shadow-xl transition-all duration-300">
+              <button className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl hover:from-green-700 hover:to-emerald-700 font-bold shadow-lg hover:shadow-xl transition-all duration-300" data-testid="doc-download-txt">
                 <Download className="h-5 w-5" />
                 TXT
               </button>

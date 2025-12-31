@@ -43,3 +43,8 @@ firebase-debug.log
 firestore-debug.log
 .vercel
 .env*.local
+
+# Playwright
+test-results/
+playwright-report/
+playwright/.cache/
