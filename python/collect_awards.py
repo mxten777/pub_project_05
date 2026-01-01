@@ -35,18 +35,25 @@ BASE_URL = 'http://apis.data.go.kr/1230000/ScsbidInfoService04'
 class AwardDataCollector:
     """낙찰(개찰) 데이터 수집 클래스"""
     
-    def __init__(self, source: str = 'mock'):
+    def __init__(self, source: str = 'mock', fail_rate: float = 0.0, fast_retry: bool = False):
         """
         Args:
             source: 'mock' (샘플 데이터) 또는 'real' (실제 API)
+            fail_rate: Mock 실패 주입 확률 (0.0~1.0, 기본: 0.0=실패 없음)
+            fast_retry: 빠른 재시도 모드 (True=대기 최소화, False=실제 대기, 기본: False)
         """
         self.source = source
         self.api_key = API_KEY
         self.base_url = BASE_URL
         self.retry_queue = []
+        self.fail_rate = fail_rate
+        self.fast_retry = fast_retry
         
         if source == 'real' and not API_KEY:
             raise ValueError("❌ API 키가 없습니다. 환경 변수 DATA_PORTAL_API_KEY를 설정하세요.")
+        
+        if fail_rate < 0.0 or fail_rate > 1.0:
+            raise ValueError("❌ fail_rate는 0.0~1.0 사이 값이어야 합니다.")
     
     def collect(self, count: int = 50, pages: int = 2) -> List[Dict]:
         """
@@ -67,7 +74,12 @@ class AwardDataCollector:
             return self._fetch_real_data(pages)
     
     def _generate_mock_data(self, count: int) -> List[Dict]:
-        """Mock 낙찰 데이터 생성"""
+        """Mock 낙찰 데이터 생성 (실패 주입 옵션 포함)"""
+        # 실패 주입 시뮬레이션
+        if self.fail_rate > 0 and random.random() < self.fail_rate:
+            print(f"\n⚠️ Mock 실패 주입 발동! (fail_rate={self.fail_rate})")
+            return self._simulate_failure()
+        
         mock_awards = []
         base_date = datetime.now()
         
@@ -272,6 +284,48 @@ class AwardDataCollector:
             pass
         return None
     
+    def _simulate_failure(self) -> List[Dict]:
+        """Mock 실패 시뮬레이션 (500/Timeout 재현)"""
+        failure_type = random.choice(['500', 'timeout'])
+        max_retries = 6
+        
+        print(f"🎭 실패 유형: {failure_type}")
+        print(f"재시도 정책 발동: 최대 {max_retries}회 시도")
+        if self.fast_retry:
+            print(f"⚡ 빠른 재시도 모드 (실제 대기 생략)\n")
+        else:
+            print(f"⏳ 실제 백오프 대기 적용 (운영 환경 동일)\n")
+        
+        for attempt in range(max_retries):
+            if failure_type == '500':
+                # 서버 오류 시뮬레이션: 60s → 120s → 180s → 240s → 300s → 360s
+                base_wait = 60
+                wait_time = base_wait * (attempt + 1) + random.uniform(0, 20)
+                print(f"⚠️ [500] 서버 오류 시뮬레이션. {wait_time:.1f}초 대기 (재시도 {attempt+1}/{max_retries})")
+            else:
+                # Timeout 시뮬레이션: 30s → 60s → 90s → 120s → 150s → 180s
+                wait_time = 30 * (attempt + 1) + random.uniform(0, 10)
+                print(f"⚠️ Timeout 시뮬레이션. {wait_time:.1f}초 대기 (재시도 {attempt+1}/{max_retries})")
+            
+            # 실제 대기 적용 (기본값) vs 빠른 모드 (옵션)
+            if self.fast_retry:
+                time.sleep(0.1)  # 빠른 모드: 최소 대기 (로깅 가독성)
+            else:
+                time.sleep(wait_time)  # 실제 대기 (운영 환경 동일)
+        
+        # 재시도 실패 → 큐에 추가
+        print(f"\n❌ {max_retries}회 재시도 실패. retry_queue에 적재.")
+        self.retry_queue.append({
+            'operation': 'mock_failure_injection',
+            'params': {'fail_rate': self.fail_rate, 'failure_type': failure_type},
+            'page': 0,
+            'failed_at': datetime.now().isoformat(),
+            'retry_count': max_retries
+        })
+        
+        # 빈 리스트 반환 (수집 실패)
+        return []
+    
     def save_to_json(self, awards: List[Dict], run_id: str, output_dir: str = './') -> str:
         """JSON 파일로 저장"""
         os.makedirs(output_dir, exist_ok=True)
@@ -347,6 +401,10 @@ def main():
                        help='출력 디렉토리 (기본: ./)')
     parser.add_argument('--bids-file', type=str,
                        help='입찰 데이터 파일 경로 (조인키 매칭용)')
+    parser.add_argument('--fail-rate', type=float, default=0.0,
+                       help='Mock 실패 주입 확률 (0.0~1.0, 기본: 0.0=실패 없음)')
+    parser.add_argument('--fast-retry', action='store_true',
+                       help='빠른 재시도 모드 (실제 대기 생략, 테스트용)')
     
     args = parser.parse_args()
     
@@ -360,13 +418,22 @@ def main():
     print(f"Run ID: {run_id}")
     if args.source == 'mock':
         print(f"생성 레코드 수: {args.count}건")
+        if args.fail_rate > 0:
+            print(f"⚠️ 실패 주입 모드: {args.fail_rate*100:.1f}% 확률")
+            if args.fast_retry:
+                print(f"⚡ 빠른 재시도 모드 (실제 대기 생략)")
+            else:
+                print(f"⏳ 실제 백오프 대기 적용 (운영 동일)")
     else:
         print(f"수집 페이지 수: {args.pages}페이지")
     print("="*70 + "\n")
     
     # 수집 실행
+    start_time = time.time()
+    awards_status = "FAIL"  # 기본값
+    
     try:
-        collector = AwardDataCollector(source=args.source)
+        collector = AwardDataCollector(source=args.source, fail_rate=args.fail_rate, fast_retry=args.fast_retry)
         
         if args.source == 'mock':
             awards = collector.collect(count=args.count)
@@ -375,6 +442,14 @@ def main():
         
         if not awards:
             print("❌ 수집된 데이터가 없습니다.")
+            print(f"\n📊 awards_status: FAIL")
+            
+            # 재시도 큐 저장 (실패 시에도)
+            collector.save_retry_queue(args.output_dir)
+            
+            duration = time.time() - start_time
+            print(f"\n⏱️ 실행 시간: {duration:.2f}초")
+            print("\n⚠️ 낙찰 데이터 수집 실패. 입찰 데이터는 영향받지 않습니다.\n")
             return
         
         # JSON 저장
@@ -390,6 +465,10 @@ def main():
             match_result = collector.calculate_match_rate(awards, args.bids_file)
             print(f"✅ 매칭율: {match_result['match_rate']}% ({match_result['matched_count']}/{match_result['total_awards']})")
         
+        # 수집 성공
+        awards_status = "OK"
+        duration = time.time() - start_time
+        
         # 결과 요약
         print("\n" + "="*70)
         print("📊 수집 결과 요약")
@@ -399,10 +478,19 @@ def main():
         print(f"재시도 큐: {len(collector.retry_queue)}건")
         if match_result:
             print(f"입찰-낙찰 매칭율: {match_result['match_rate']}%")
+        print(f"awards_status: {awards_status}")
+        print(f"실행 시간: {duration:.2f}초")
         print("="*70 + "\n")
         
     except Exception as e:
+        awards_status = "FAIL"
+        duration = time.time() - start_time
+        
         print(f"\n❌ 오류 발생: {e}")
+        print(f"📊 awards_status: {awards_status}")
+        print(f"⏱️ 실행 시간: {duration:.2f}초")
+        print("\n⚠️ 낙찰 데이터 수집 실패. 입찰 데이터는 영향받지 않습니다.\n")
+        
         import traceback
         traceback.print_exc()
 
